@@ -1,4 +1,4 @@
-use flate2::read::GzDecoder;
+use flate2::{read::GzDecoder, Compression, GzBuilder};
 use std::{
     fs::File,
     io::{self, BufReader, Read, Write},
@@ -49,4 +49,31 @@ pub fn parse_def_header(src_data: &[u8]) -> Result<&[u8], DefParserError> {
     Err(DefParserError::InvalidHeader(
         "Failed to validate file signature",
     ))
+}
+
+pub fn compress(input: &str, output: &str) -> io::Result<()> {
+    let f = File::open(&input).unwrap();
+    let mut buffer = Vec::new();
+    let mut reader = BufReader::new(f);
+
+    reader.read_to_end(&mut buffer).unwrap();
+
+    let b = compress_data(buffer.as_slice());
+
+    let mut f = File::create(&output)?;
+    f.write_all(RTK_MAGIC)?;
+    f.write_all(b.unwrap().as_slice())?;
+
+    Ok(())
+}
+
+pub fn compress_data(src_data: &[u8]) -> io::Result<Vec<u8>> {
+    let mut gz = GzBuilder::new()
+        .mtime(0)
+        .operating_system(0xb)
+        .write(Vec::new(), Compression::default());
+
+    gz.write_all(src_data)?;
+
+    Ok(gz.finish().unwrap())
 }
