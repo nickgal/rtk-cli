@@ -29,7 +29,7 @@ Options:
 ```
 
 ```bash
-cargo run -- decompress -i RtkGame.def -o RtkGame.def.txt
+rtk-cli decompress -i RtkGame.def -o RtkGame.ascii.def
 ```
 
 ### Compress
@@ -44,7 +44,7 @@ Options:
 ```
 
 ```bash
-cargo run -- compress -i RtkGame.def.txt -o RtkGame.def
+rtk-cli compress -i RtkGame.ascii.def -o RtkGame.def
 ```
 
 ## Supported Files
