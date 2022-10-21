@@ -172,7 +172,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "rtk_cli"
+name = "rtk-cli"
 version = "0.1.0"
 dependencies = [
  "clap",

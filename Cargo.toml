@@ -1,9 +1,18 @@
 [package]
-name = "rtk_cli"
+name = "rtk-cli"
 version = "0.1.0"
+authors = ["Nick Gal <nickgal@me.com>"]
 edition = "2021"
+repository = "https://github.com/nickgal/rtk-cli/"
+license = "MIT"
+categories = ["command-line-utilities", "game-development", "parser-implementations ", "parsing"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[[bin]]
+name = "rtk-cli"
+path = "src/main.rs"
+test = false
 
 [dependencies]
 clap = { version = "4.0.17", features = ["derive"] }
